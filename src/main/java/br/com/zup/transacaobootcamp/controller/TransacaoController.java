@@ -14,16 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/transacoes")
-public class BuscaTransacaoController {
+public class TransacaoController {
 
     private TransacaoRepository repository;
 
-    public BuscaTransacaoController(TransacaoRepository repository) {
+    public TransacaoController(TransacaoRepository repository) {
         this.repository = repository;
     }
 
@@ -34,7 +33,7 @@ public class BuscaTransacaoController {
         if(!existsByCartaoId){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recurso não encontrado");
         }
-        Optional<Page<Transacao>> cartoesOp = repository.findByCartaoId(id, pageable);
-            return ResponseEntity.ok(cartoesOp);
+        Page<Transacao> cartoes = repository.findByCartaoId(id, pageable);
+            return ResponseEntity.ok(cartoes);
     }
 }

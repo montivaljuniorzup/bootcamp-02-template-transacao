@@ -36,11 +36,11 @@ public class KafkaConfiguration {
 
     /* ConsumerFactory que deve ser configurado em duas etapas:
     A primeira etapa:
-     A gente tem que definir qual será o desserializador da chave e do evento/mensagem,
-    como por exemplo, StringDeserializer, JsonDeserializer, etc.
-     A segunda etapa é:
-     Quais são as configurações desse consumidor,
-     por este motivo foi criado o método consumerConfigurations().
+    - A gente tem que definir qual será o desserializador da chave e do evento/mensagem,
+    como por exemplo, StringDeserializer (Chave), JsonDeserializer (Evento), etc.
+    - A segunda etapa é:
+    Quais são as configurações desse consumidor,
+    por este motivo foi criado o método consumerConfigurations().
     */
     @Bean
     public ConsumerFactory<String, TransacaoEvento> transactionConsumerFactory() {
@@ -53,8 +53,8 @@ public class KafkaConfiguration {
     //Configuração do listener
     /*
    ConcurrentKafkaListenerContainerFactory,
-    no qual precisa ser cadastrado como ele irá tratar os eventos recebidos, por isso,
-    foi criado o método transactionConsumerFactory()!
+    Precisa ser cadastrado como serão tratados os eventos recebidos, por isso,
+    foi criado o método acima transactionConsumerFactory()!
      */
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, TransacaoEvento> kafkaListenerContainerFactory() {
@@ -65,9 +65,11 @@ public class KafkaConfiguration {
     }
 
     /*
-    Primeiro a gente teve que transcrever as propriedades do consumidor para um mapa,
+    Primeiro a gente teve que transcrever as propriedades do application.properties do consumidor para um mapa:
+    - public Map<String, Object> consumerConfigurations() (Primeiro método)
     que foi utilizado para definir nosso consumidor e por último foi cadastrado o nosso consumidor no listener!
-    Agora é fazer o listener que o mesmo saberá como lidar com o Evento, conforme código abaixo:
+
+    Agora é preciso fazer a classe que será o listener que o mesmo saberá como lidar com o Evento, conforme código abaixo:
     @Component
     public class ListenerDeTransacao
      */

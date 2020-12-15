@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface TransacaoRepository extends JpaRepository<Transacao, String> {
 
-    Optional<Page<Transacao>> findByCartaoId(String id, Pageable pageable);
+    Page<Transacao> findByCartaoId(String id, Pageable pageable);
 
     boolean existsByCartaoId(String id);
 }
